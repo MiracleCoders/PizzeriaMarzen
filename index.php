@@ -9,11 +9,14 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
-    <body>
+    <body> <>
         <?php
         // put your code here
         print "TEST 1";
+        print "DUPA";
         
+        
+        $a=1;
         ?>
     </body>
 </html>
