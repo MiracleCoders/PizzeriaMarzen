@@ -14,7 +14,7 @@ and open the template in the editor.
         // put your code here
         print "TEST 1";
         print "DUPA";
-        
+        print "TEST 2";
         
         $a=1;
         ?>
