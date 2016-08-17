@@ -14,6 +14,7 @@ and open the template in the editor.
         // put your code here
         print "TEST 1";
         
+        $b=1;
         ?>
     </body>
 </html>
