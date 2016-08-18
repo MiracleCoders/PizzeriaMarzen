@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+
+baza:       u848159436_mcpiz
+użytkownik: u848159436_mcadm
+hasło:      MCode1234
+
 -->
 <html>
     <head>
@@ -14,10 +16,10 @@ and open the template in the editor.
         // put your code here
         print "TEST 1";
         print "TEST 2";
+        MCode1234
         
         $a=123;
         
-        $b=1;
         ?>
     </body>
 </html>
