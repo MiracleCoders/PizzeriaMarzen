@@ -1,0 +1,20 @@
+1.  Zmienne zawierające nazwy kolumn w tabelach w bazach
+
+    tabela USERS
+    kolumna PRIVILAGES lub PRIVILEGES
+
+    Odwołujemy się zmienną $PRIV zamiast w kodzie bezpośrednio przez "PRIVILAGES" lub "PRIVILEGES"
+
+2. Flagi przywilejów
+
+       1 - dostęp do strony dla klienta
+       2 - dostęp do strony dla pracownika (system cms)
+       4 - dodawanie pizzy
+       8 - usuwanie pizzy
+      16 - dodawanie pracownika
+      32 - usuwanie pracownika
+      64 - podgląd pracowników
+     128 - akceptowanie zamówień
+     256 - odrzucanie zamówień
+     512 - podglądanie zamówień
+    1024 - edytowanie zamówień
