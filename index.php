@@ -11,13 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        // put your code here
-        print "TEST 1";
-        print "TEST 2";
-        
-        $a=123;
-        
-        $b=1;
+           
         ?>
     </body>
 </html>
