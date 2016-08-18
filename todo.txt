@@ -1,0 +1,7 @@
+1.  Zmienne zawierające nazwy kolumn w tabelach w bazach
+
+    tabela USERS
+    kolumna PRIVILAGES lub PRIVILEGES
+
+    Odwołujemy się zmienną $PRIV zamiast w kodzie bezpośrednio przez "PRIVILAGES" lub "PRIVILEGES"
+
