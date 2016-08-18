@@ -10,14 +10,13 @@
     $psw = "witchery11!";
     $dbName = "u463957321_666";
     $host = "mysql.hostinger.pl";
-
-
     try {
-        $db = new PDO('mysql:host=mysql.hostinger.pl; dbname=u889017069_super', 'u463957321_666', 'witchery11!');
+        $db = new PDO('mysql:host=localhost; dbname=pizzeria', 'root', '');
 //        $db = new PDO("mysql:host=$host;dbname=$dbName",$user,$psw);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         echo 'lol';
     } catch (Exception $ex) {
         echo 'Błąd połączenia z db';
+        echo $ex;
     }
