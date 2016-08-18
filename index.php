@@ -13,6 +13,7 @@ and open the template in the editor.
         <?php
         // put your code here
         print "TEST 1";
+        print "TEST 2";
         
         $b=1;
         ?>
