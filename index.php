@@ -15,6 +15,8 @@ and open the template in the editor.
         print "TEST 1";
         print "TEST 2";
         
+        $a=123;
+        
         $b=1;
         ?>
     </body>
