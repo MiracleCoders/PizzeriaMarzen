@@ -15,6 +15,9 @@ Host SQL:   mysql.hostinger.pl
     </head>
     <body>
         <?php
-           
+        
+        include_once 'init/dbConnect.php';
+        
         ?>
     </body>
+</html>
