@@ -18,3 +18,5 @@
      256 - odrzucanie zamówień
      512 - podglądanie zamówień
     1024 - edytowanie zamówień
+
+3.  Formularz autocomplete adresów
