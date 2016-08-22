@@ -20,3 +20,8 @@
     1024 - edytowanie zamówień
 
 3.  Formularz autocomplete adresów
+
+!4. Zrobić zabezpieczenia - ukrywanie informacji w kodzie (wyeliminować potrzebę
+    wykorzystanie input hidden i wypisywania danych w kodzie na bieżąco
+
+5. Dorobić hashowanie

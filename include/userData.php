@@ -1,7 +1,7 @@
 <?php
-
+include_once 'settings/userDataSettings.php';
 //Wykonywanie operacji na użytkownikach
-class user {
+class userData {
 
     public $id;
     public $login;
@@ -14,7 +14,7 @@ class user {
     //POBRANIE UŻYTKOWNIKÓW
     public function fetchAllUsers() {
         try {
-
+           
             global $db;
             $query = $db->prepare("SELECT * FROM users");
             $query->execute();
@@ -28,18 +28,18 @@ class user {
 
     //REJESTRACJA UŻYTKOWNIKA
     //do metody przekazujemy obiekt user, zawierający dane użytkownika
-    public function insertNewUser(user $user) {
+    public function insertNewUser(userData $user) {
         try {
             global $db;
-            $login = $user->login;
+            $login = $this->login;
 
             //hashujemy hasło
-            $password = password_hash($user->password, PASSWORD_DEFAULT);
+            $password = password_hash($this->password, HASH);
 
             //przypisujemy zmiennym dane z pól, które zostały przekazane w obiekcie
-            $name = $user->name;
-            $lastName = $user->lastName;
-            $privilages = $user->privileges;
+            $name = $this->name;
+            $lastName = $this->lastName;
+            $privilages = $this->privileges;
 
             //przygotowujemy zapytanie
             $query = $db->prepare('INSERT INTO users (login, password, name, lastName, privileges) VALUES (?,?,?,?,?)');
@@ -61,13 +61,12 @@ class user {
     }
 
     //USUWANIE UŻYTKOWNIKA
-    public function deleteUser(user $user) {
+    public function deleteUser(userData $user) {
         try {
             global $db;
-            $id = $user->id;
 
             $query = $db->prepare('DELETE FROM users WHERE id_user=?');
-            $query->bindValue(1, $id);
+            $query->bindValue(1, $this->id);
 
             $query->execute();
         } catch (PDOException $ex) {

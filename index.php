@@ -1,8 +1,11 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include_once 'init/dbConnect.php';
-include_once 'include/user.php';
+include_once 'include/userData.php';
+
+var_dump($_SESSION);
 
 // POSTY
 //Tutaj z formularza przekazujemy dane. Pochodzą one z inputów o określonej nazwie (np. login).
@@ -20,7 +23,7 @@ if (isset($_POST['login']) && $_POST['login'] != "") {
 
 //usuwanie użytkownika
 if (isset($_POST['btn-deleteUser'])) {
-    $user = new user();
+    $user = new userData();
     $user->id = filter_input(INPUT_POST, 'idUser');
     $user->deleteUser($user);
 }
@@ -28,7 +31,7 @@ if (isset($_POST['btn-deleteUser'])) {
 //filter_input używamy w celu przefiltrowania danych znajdujących się z zmiennej superglobalnej POST.
 if (isset($_POST['btn-Register'])) {
     //tworzymy nowy obiekt typu user, przypisujemy mu następnie poszczególne wartości z formularza
-    $user = new user();
+    $user = new userData();
     $user->login = trim(filter_input(INPUT_POST, 'login'));
     $user->password = trim(filter_input(INPUT_POST, 'password'));
     $user->name = trim(filter_input(INPUT_POST, 'name'));
@@ -42,7 +45,7 @@ if (isset($_POST['btn-Register'])) {
 }
 
 //do zmiennej $allUsers przypisujemy wartość pochodzącą z wywołania metody pobierającej dane wszystkich użytkowników
-$user = new user();
+$user = new userData();
 $allUsers = $user->fetchAllUsers();
 ?>
 
@@ -87,7 +90,8 @@ Host SQL:   mysql.hostinger.pl
         foreach ($allUsers as $rowUser) {
             echo '<br/>';
             echo $rowUser['login'];
-            ?> 
+            ?>
+        
             <form action="index.php" method="POST" enctype="multipart/form-data">
                 Login <input type="hidden" value="<?php echo $rowUser['id_user']; ?>" name="idUser"/>
                 <input type="submit" name="btn-deleteUser" value="Usuń użytkownika"/>
