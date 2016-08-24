@@ -34,8 +34,9 @@ class userData {
             $login = $this->login;
 
             //hashujemy hasło
-            $password = password_hash($this->password, HASH);
-
+            //$password = password_hash($this->password, HASH);
+            $password = $this->password;
+            
             //przypisujemy zmiennym dane z pól, które zostały przekazane w obiekcie
             $name = $this->name;
             $lastName = $this->lastName;

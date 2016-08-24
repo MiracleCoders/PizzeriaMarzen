@@ -1,12 +1,12 @@
 <?php
+include_once "./include/userService.php";
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include_once 'init/dbConnect.php';
 include_once 'include/userData.php';
 
-var_dump($_SESSION);
-
+//var_dump($_SESSION);
 // POSTY
 //Tutaj z formularza przekazujemy dane. Pochodzą one z inputów o określonej nazwie (np. login).
 //isset sprawdza, czy dana zmienna istnieje.
@@ -21,6 +21,19 @@ if (isset($_POST['login']) && $_POST['login'] != "") {
     $errMsg = "Login nie może być pusty.";
 }
 
+if (isset($_POST['submitLogin'])) {
+    $user = new userData();
+    $user->id = filter_input(INPUT_POST, 'login');
+    $user->login = filter_input(INPUT_POST, 'login');
+    $user->password = filter_input(INPUT_POST, 'password');
+    $loggedUser = new userService($user);
+    $flag = $loggedUser->userLoginCheck();
+    if ($flag != NULL)
+        echo "<br />" . $allErrors[$flag] . ' (Error: ' . $flag . ')';
+    if ($flag == 103)
+        echo "<br />" . $_SESSION['userLogin'];
+    //var_dump($_SESSION['userLogin']);
+}
 //usuwanie użytkownika
 if (isset($_POST['btn-deleteUser'])) {
     $user = new userData();
@@ -45,6 +58,7 @@ if (isset($_POST['btn-Register'])) {
 }
 
 //do zmiennej $allUsers przypisujemy wartość pochodzącą z wywołania metody pobierającej dane wszystkich użytkowników
+
 $user = new userData();
 $allUsers = $user->fetchAllUsers();
 ?>
@@ -65,24 +79,42 @@ Host SQL:   mysql.hostinger.pl
         <title></title>
     </head>
     <body>
-        <?php if (isset($errMsg)) echo $errMsg; ?>
-        <form action="index.php" method="POST" enctype="multipart/form-data">
-            Login <input type="text" name="login"/>
-            Hasło <input type="password" name="password"/>
+        <?php
+        if (isset($errMsg)) {
+            echo $errMsg;
+        }
 
-            <input type="submit" name="submitLogin" value="Zaloguj się"/>
-        </form>
+        if (!isset($loggedUser)) {
+//        if (!$loggedUser->checkLoginState($_SESSION['userLogin'])) {
+//            
+//        }
+            ?>           
+            <form action="index.php" method="POST" enctype="multipart/form-data">
+                Login <input type="text" name="login"/>
+                Hasło <input type="password" name="password"/>
 
+                <input type="submit" name="submitLogin" value="Zaloguj się"/>
+            </form>
+            <?php
+        } else {
+            ?>
+            Zalogowany użytkownik: <?php echo $loggedUser->getUserData($user); ?>
+            <form action="index.php" method="POST" enctype="multipart/form-data">
+                <input type="submit" name="submitLogout" value="Wyloguj się"/>
+            </form>
+            <?php
+        }
+        ?>
 
         Rejestracja
-        <form action="index.php" method="POST" enctype="multipart/form-data">
-            Login <input type="text" name="login"/>
-            Imię <input type="text" name="name"/>
-            Nazwisko <input type="text" name="lastName"/>
-            Hasło <input type="password" name="password"/>
-            Email <input type="text" name="privileges"/>
+        <form action = "index.php" method = "POST" enctype = "multipart/form-data">
+            Login <input type = "text" name = "login"/>
+            Imię <input type = "text" name = "name"/>
+            Nazwisko <input type = "text" name = "lastName"/>
+            Hasło <input type = "password" name = "password"/>
+            Email <input type = "text" name = "privileges"/>
 
-            <input type="submit" name="btn-Register" value="Zarejestruj się"/>
+            <input type = "submit" name = "btn-Register" value = "Zarejestruj się"/>
         </form>
 
         <?php
@@ -91,7 +123,7 @@ Host SQL:   mysql.hostinger.pl
             echo '<br/>';
             echo $rowUser['login'];
             ?>
-        
+
             <form action="index.php" method="POST" enctype="multipart/form-data">
                 Login <input type="hidden" value="<?php echo $rowUser['id_user']; ?>" name="idUser"/>
                 <input type="submit" name="btn-deleteUser" value="Usuń użytkownika"/>
