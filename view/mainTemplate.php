@@ -1,8 +1,9 @@
+<?php require 'loginForm.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="<?php echo $dir; ?>/view/styles/style.css">
         <title></title>
     </head>
 
@@ -14,6 +15,11 @@
                     <div class="col-12">
                         <div class="mainLogo">
 
+                        </div>
+
+                        <div class="userLogin">
+                            <?php $dir = $_SERVER["PHP_SELF"]; ?>
+                            <?php require "./controller/loginForm.php"; ?>
                         </div>
                     </div>
 

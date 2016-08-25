@@ -25,3 +25,5 @@
     wykorzystanie input hidden i wypisywania danych w kodzie na bieżąco
 
 5. Dorobić hashowanie
+
+6. Dorobić zasady wpisywania w formularzach
