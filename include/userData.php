@@ -1,5 +1,7 @@
 <?php
+
 include_once 'settings/userDataSettings.php';
+
 //Wykonywanie operacji na użytkownikach
 class userData {
 
@@ -14,7 +16,7 @@ class userData {
     //POBRANIE UŻYTKOWNIKÓW
     public function fetchAllUsers() {
         try {
-           
+
             global $db;
             $query = $db->prepare("SELECT * FROM users");
             $query->execute();
@@ -36,21 +38,23 @@ class userData {
             //hashujemy hasło
             //$password = password_hash($this->password, HASH);
             $password = $this->password;
-            
+
             //przypisujemy zmiennym dane z pól, które zostały przekazane w obiekcie
             $name = $this->name;
             $lastName = $this->lastName;
+            $email = $this->email;
             $privilages = $this->privileges;
 
             //przygotowujemy zapytanie
-            $query = $db->prepare('INSERT INTO users (login, password, name, lastName, privileges) VALUES (?,?,?,?,?)');
+            $query = $db->prepare('INSERT INTO users (login, password, name, lastName, email, privileges) VALUES (?,?,?,?,?,?)');
 
             //pod pytajniki podstawiane są po kolei dane użytkownika
             $query->bindValue(1, $login);
             $query->bindValue(2, $password);
             $query->bindValue(3, $name);
             $query->bindValue(4, $lastName);
-            $query->bindValue(5, $privilages);
+            $query->bindValue(5, $email);
+            $query->bindValue(6, $privilages);
 
             //wykonanie zapytania
             $query->execute();

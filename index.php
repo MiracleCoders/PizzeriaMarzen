@@ -6,33 +6,62 @@ ini_set('display_errors', 1);
 include_once 'init/dbConnect.php';
 include_once 'include/userData.php';
 
-//var_dump($_SESSION);
-// POSTY
-//Tutaj z formularza przekazujemy dane. Pochodzą one z inputów o określonej nazwie (np. login).
-//isset sprawdza, czy dana zmienna istnieje.
-if (isset($_POST['login']) && $_POST['login'] != "") {
-    if (isset($_POST['password']) && $_POST['password'] != "") {
-        $login = $_POST['login'];
-        $password = $_POST['password'];
-    } else {
-        $errMsg = "Brakuje hasła!";
-    }
-} else {
-    $errMsg = "Login nie może być pusty.";
+// Funkcja wyświetlająca alert z tekstem
+function msgBox($txt) {
+    echo sprintf("<script type=\"text/javascript\">alert(\"%s\");</script>", $txt);
 }
 
-if (isset($_POST['submitLogin'])) {
+function msgBox2($txt) {
+    echo sprintf("<script type=\"text/javascript\">debug=\"%s\";</script>", $txt);
+}
+
+// Jeżeli użytkownik jest zalogowany to trzeba stworzyć obiekt user i loggedUser
+// bo przy każdym odświeżeniu strony znika
+if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] != "") {
     $user = new userData();
-    $user->id = filter_input(INPUT_POST, 'login');
+    $user->id = $_SESSION['userId'];
+    $user->login = $_SESSION['userLogin'];
+    $loggedUser = new userService($user);
+}
+
+// Obsługa przycisku logowania
+if (isset($_POST['btn-Login'])) {
+    // Tworzymy zmienną z obiektem typu danych użytkownika (klasa user)
+    // Zbieramy z pól filtrowane dane
+    $user = new userData();
     $user->login = filter_input(INPUT_POST, 'login');
     $user->password = filter_input(INPUT_POST, 'password');
-    $loggedUser = new userService($user);
-    $flag = $loggedUser->userLoginCheck();
-    if ($flag != NULL)
-        echo "<br />" . $allErrors[$flag] . ' (Error: ' . $flag . ')';
-    if ($flag == 103)
-        echo "<br />" . $_SESSION['userLogin'];
-    //var_dump($_SESSION['userLogin']);
+    // Tworzymy zmienną obiektową dla zalogowanego użytkownika
+    if ($user->login != "") {
+        // Jest login
+        if ($user->password != "") {
+            // Jest login i jest hasło
+            $loggedUser = new userService($user);
+            $errType = $loggedUser->userLoginCheck();
+            // msgBox("Login: " . $user->login . "\\n" . $allErrors[$errType]); // wyświetl wprowadzone dane
+            if ($errType != 0) {
+                // Błąd logowania
+                echo "<br />" . $allErrors[$errType] . ' (Error: ' . $errType . ')';
+            } else {
+                // Logowanie zakończone sukcesem
+                $_SESSION['userId'] = $user->id;
+                $_SESSION['userLogin'] = $user->login;
+                //header("Location: index.php");
+            }
+        } else {
+            $errType = 202; // Jest login, nie ma hasła
+        }
+    } else {
+        $errType = 202; // Nie ma loginu (i hasła)
+}
+}
+
+if (isset($_POST['btn-Logout'])) {
+    if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] != "") {
+        $loggedUser->logout();
+    } else {
+        $errType = 210; // Nie można wylogować
+    }
 }
 //usuwanie użytkownika
 if (isset($_POST['btn-deleteUser'])) {
@@ -49,6 +78,7 @@ if (isset($_POST['btn-Register'])) {
     $user->password = trim(filter_input(INPUT_POST, 'password'));
     $user->name = trim(filter_input(INPUT_POST, 'name'));
     $user->lastName = trim(filter_input(INPUT_POST, 'lastName'));
+    $user->email = trim(filter_input(INPUT_POST, 'email'));
     $user->privileges = trim(filter_input(INPUT_POST, 'privileges'));
     //używając metody insertNewUser wstawiamy nowego użytkownika
     $user->insertNewUser($user);
@@ -58,7 +88,6 @@ if (isset($_POST['btn-Register'])) {
 }
 
 //do zmiennej $allUsers przypisujemy wartość pochodzącą z wywołania metody pobierającej dane wszystkich użytkowników
-
 $user = new userData();
 $allUsers = $user->fetchAllUsers();
 ?>
@@ -79,12 +108,17 @@ Host SQL:   mysql.hostinger.pl
         <title></title>
     </head>
     <body>
+        <script type="text/javascript">
+            debug = 0;
+            debugTimer = setInterval(function () {
+                if (debug != 0) {
+                    alert(debug);
+                    debug = 0;
+                }
+            }, 100);
+        </script>
         <?php
-        if (isset($errMsg)) {
-            echo $errMsg;
-        }
-
-        if (!isset($loggedUser)) {
+        if (!isset($_SESSION['userLogin'])) {
 //        if (!$loggedUser->checkLoginState($_SESSION['userLogin'])) {
 //            
 //        }
@@ -93,14 +127,14 @@ Host SQL:   mysql.hostinger.pl
                 Login <input type="text" name="login"/>
                 Hasło <input type="password" name="password"/>
 
-                <input type="submit" name="submitLogin" value="Zaloguj się"/>
+                <input type="submit" name="btn-Login" value="Zaloguj się"/>
             </form>
             <?php
         } else {
             ?>
-            Zalogowany użytkownik: <?php echo $loggedUser->getUserData($user); ?>
+            Zalogowany użytkownik: <?php echo $_SESSION['userLogin']; ?>
             <form action="index.php" method="POST" enctype="multipart/form-data">
-                <input type="submit" name="submitLogout" value="Wyloguj się"/>
+                <input type="submit" name="btn-Logout" value="Wyloguj się"/>
             </form>
             <?php
         }
