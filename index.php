@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 include_once 'init/dbConnect.php';
 include_once 'include/userData.php';
 
-$dir = '//'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+$dir = '//' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 
 // Funkcja wyświetlająca alert z tekstem
 function msgBox($txt) {
@@ -32,7 +32,7 @@ if (isset($_POST['btn-deleteUser'])) {
     $user = new userData();
     $user->id = filter_input(INPUT_POST, 'idUser');
     $user->deleteUser($user);
-    header("Location: ".basename(__FILE__));
+    header("Location: " . basename(__FILE__));
 }
 
 //filter_input używamy w celu przefiltrowania danych znajdujących się z zmiennej superglobalnej POST.
@@ -49,12 +49,23 @@ if (isset($_POST['btn-Register'])) {
     $user->insertNewUser($user);
 
     //Musimy zapobiec ponownemu przesłaniu formularza (klawisz f5)
-    header("Location: ".basename(__FILE__));
+    header("Location: " . basename(__FILE__));
 }
 
 //do zmiennej $allUsers przypisujemy wartość pochodzącą z wywołania metody pobierającej dane wszystkich użytkowników
 $user = new userData();
 $allUsers = $user->fetchAllUsers();
+
+$tmp = new userData();
+$tmp->login = "test4";
+$tmp->password = "pass4";
+
+
+$tmp2 = new userService($tmp);
+echo "Test: " . $tmp2->checkUserExist($tmp);
+if ($tmp2->checkUserExist($tmp) == 0) {
+    $tmp2->registerUser($tmp);
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,6 +93,7 @@ Host SQL:   mysql.hostinger.pl
                 }
             }, 100);
         </script>
+
+        <?php
+        require './view/mainTemplate.php';
         
-<?php
-require './view/mainTemplate.php';
