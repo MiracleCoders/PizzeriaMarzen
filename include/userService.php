@@ -11,6 +11,7 @@ class userService {
     protected $password;
     protected $name;
     protected $lastName;
+    public $errType;
 
     public function userService(userData $userData) {
         $this->id = $userData->id;
@@ -20,7 +21,7 @@ class userService {
         $this->lastName = $userData->lastName;
     }
 
-    public function userLoginCheck() {
+    public function loginUser() {
         if (isset($_SESSION['userLogin'])) {
             return $errType = 203; // Jest już zalogowany
         } else {
@@ -49,7 +50,7 @@ class userService {
                         } else {
                             return $errType = 200; // Brak konta o takim loginie/nieprawidłowe dane
                         }
-                    } catch (Exception $ex) {
+                    } catch (PDOException $ex) {
                         return $errType = 299; // Nieznany błąd logowania
                     }
                 } else {
@@ -108,7 +109,7 @@ class userService {
         }
     }
 
-    public function logout() {
+    public function logoutUser() {
         unset($this->id);
         unset($this->login);
         unset($_SESSION['userId']);
@@ -116,9 +117,66 @@ class userService {
         session_destroy();
     }
 
-    public function getUserData(userData $user) {
-        $fullUserName = sprintf("%s %s", $user->name, $user->lastName);
-        return $fullUserName;
+    public function checkUserExist(userData $user) {
+        $userData = new userService($user);
+
+        $query = $userData->getUserData($user);
+        
+        if ($query != NULL && is_object($query) ) {
+            return $query->rowCount();
+        } else {
+            return false;
+        }
     }
 
+    public function getUserData(userData $user) {
+        // Gdy nie mamy loginu, ale mamy mail
+        // LUB
+        // Gdy mamy sam login
+        try {
+
+            $login = $user->login ? $user->login : NULL;
+            $email = $user->email ? $user->email : NULL;
+
+            if (!$login && !$email) {
+                return $errType = 202; // Nie podano loginu i emaila
+            }
+            $query1 = "SELECT * FROM users WHERE ";
+            $query2 = $user->login ? sprintf("login = \"%s\"", $user->login) : "";
+            $query3 = $user->email ? sprintf("email = \"%s\"", $user->email) : "";
+            $query = $query1 . $query2 . ($query2 && $query3 ? " OR " : "") . $query3;
+
+            global $db;
+            $query = $db->prepare($query);
+            $query->execute();
+            
+            return $query;
+        } catch (PDOException $ex) {
+            $ex->getMessage();
+        }
+    }
+
+    public function registerUser(userData $user) {
+        $userData = new userService($user);
+        
+        $testUser=$userData->checkUserExist($user);
+        
+        if ($testUser==0||$testUser==""||$testUser==false) {
+            $login = $user->login;
+            $password = $user->password;
+            global $db;
+            try {
+                $query = $db->prepare(sprintf("INSERT INTO users (login, password) VALUES (\"%s\", \"%s\");", $login, $password));
+                $query->execute();
+                var_dump($query);
+            } catch (PDOException $ex) {
+                echo $ex->getMessage();
+            }
+        } else {
+            return $errType = 211;
+        }
+        // Sprawdzanie poprawności danych
+        
+    }
 }
+

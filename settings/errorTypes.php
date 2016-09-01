@@ -12,6 +12,8 @@ $allErrors = array(
     202 => "Pola nie mogą być puste.",
     203 => "Jesteś już zalogowany.",
     210 => "Nie można wylogować.",
+    211 => "Podany login już istnieje.",
+    212 => "Podany adres e-mail już istnieje.",
     299 => "Nieznany błąd logowania.",
 // Brak błędu
     0 => "Brak błędu."
