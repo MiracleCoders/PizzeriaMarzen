@@ -6,3 +6,8 @@ $("#btn-signIn").on("click", function () {
         $("#registerForm").load("./view/loginForm.php");
     }
 });
+
+function closeRegisterForm() {
+    registerFormByID = document.getElementById("registerForm");
+    if (registerFormByID) registerFormByID.parentNode.removeChild(registerFormByID);
+}

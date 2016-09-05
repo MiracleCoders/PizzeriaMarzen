@@ -36,21 +36,21 @@ if (isset($_POST['btn-deleteUser'])) {
 }
 
 //filter_input używamy w celu przefiltrowania danych znajdujących się z zmiennej superglobalnej POST.
-if (isset($_POST['btn-Register'])) {
-    //tworzymy nowy obiekt typu user, przypisujemy mu następnie poszczególne wartości z formularza
-    $user = new userData();
-    $user->login = trim(filter_input(INPUT_POST, 'login'));
-    $user->password = trim(filter_input(INPUT_POST, 'password'));
-    $user->name = trim(filter_input(INPUT_POST, 'name'));
-    $user->lastName = trim(filter_input(INPUT_POST, 'lastName'));
-    $user->email = trim(filter_input(INPUT_POST, 'email'));
-    $user->privileges = trim(filter_input(INPUT_POST, 'privileges'));
-    //używając metody insertNewUser wstawiamy nowego użytkownika
-    $user->insertNewUser($user);
-
-    //Musimy zapobiec ponownemu przesłaniu formularza (klawisz f5)
-    header("Location: " . basename(__FILE__));
-}
+//if (isset($_POST['btn-Register'])) {
+//    //tworzymy nowy obiekt typu user, przypisujemy mu następnie poszczególne wartości z formularza
+//    $user = new userData();
+//    $user->login = trim(filter_input(INPUT_POST, 'login'));
+//    $user->password = trim(filter_input(INPUT_POST, 'password'));
+//    $user->name = trim(filter_input(INPUT_POST, 'name'));
+//    $user->lastName = trim(filter_input(INPUT_POST, 'lastName'));
+//    $user->email = trim(filter_input(INPUT_POST, 'email'));
+//    $user->privileges = trim(filter_input(INPUT_POST, 'privileges'));
+//    //używając metody insertNewUser wstawiamy nowego użytkownika
+//    $user->insertNewUser($user);
+//
+//    //Musimy zapobiec ponownemu przesłaniu formularza (klawisz f5)
+//    header("Location: " . basename(__FILE__));
+//}
 
 //do zmiennej $allUsers przypisujemy wartość pochodzącą z wywołania metody pobierającej dane wszystkich użytkowników
 $user = new userData();

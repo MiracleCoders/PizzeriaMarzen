@@ -168,7 +168,7 @@ class userService {
             try {
                 $query = $db->prepare(sprintf("INSERT INTO users (login, password) VALUES (\"%s\", \"%s\");", $login, $password));
                 $query->execute();
-                var_dump($query);
+                //var_dump($query);
             } catch (PDOException $ex) {
                 echo $ex->getMessage();
             }
@@ -176,7 +176,7 @@ class userService {
             return $errType = 211;
         }
         // Sprawdzanie poprawności danych
-        
+        return 0;
     }
 }
 

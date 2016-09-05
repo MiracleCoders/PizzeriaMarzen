@@ -1,6 +1,7 @@
 <?php
 // Obsługa przycisku logowania
 if (isset($_POST['btn-Login'])) {
+    echo "btnLogin";
     // Tworzymy zmienną z obiektem typu danych użytkownika (klasa user)
     // Zbieramy z pól filtrowane dane
     $user = new userData();
@@ -28,9 +29,22 @@ if (isset($_POST['btn-Login'])) {
         }
     } else {
         $errType = 202; // Nie ma loginu (i hasła)
+        //run register form
     }
 }
 
+//obsługa przycisku do rejestracji
+if (isset($_POST['btn-Register'])) {
+    $user = new userData();
+    $user->login = filter_input(INPUT_POST, 'login');
+    $user->password = filter_input(INPUT_POST, 'password');
+    
+    $userRegister = new userService($user);
+    $userRegister->registerUser($user);
+        
+    unset($userRegister);
+
+}
 if (isset($_POST['btn-Logout'])) {
     if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] != "") {
         $loggedUser->logoutUser();

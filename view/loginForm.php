@@ -1,3 +1,4 @@
+
 <div class="form-register">
     <div class="inner">
         <form action="index.php" method="POST" enctype="multipart/form-data">
@@ -8,6 +9,7 @@
                 Hasło <input type="password" name="password"/>
 
                 <input type="submit" name="btn-Login" value="Zaloguj się"/>
+                <input type="submit" name="btn-Register" value="Zarejestruj się"/>
                 <?php
             } else {
                 ?>
@@ -17,5 +19,6 @@
             }
             ?>
         </form>
+        <input type="button" onclick="closeRegisterForm()" value="Zamknij" />
     </div>
 </div>
