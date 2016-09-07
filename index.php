@@ -3,8 +3,9 @@ include_once "./include/userService.php";
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include_once 'init/dbConnect.php';
+include_once $_SERVER['DOCUMENT_ROOT']."/PizzeriaMarzen/init/dbConnect.php";
 include_once 'include/userData.php';
+
 
 $dir = '//' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 
@@ -68,8 +69,8 @@ if ($tmp2->checkUserExist($tmp) == 0) {
 }
 ?>
 
-<!DOCTYPE html>
-<!--
+<!--<!DOCTYPE html>
+
 
 Baza:       u848159436_mcpiz
 Użytkownik: u848159436_mcadm
@@ -77,7 +78,7 @@ Hasło:      MCode1234
 
 Host SQL:   mysql.hostinger.pl
 
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -92,7 +93,7 @@ Host SQL:   mysql.hostinger.pl
                     debug = 0;
                 }
             }, 100);
-        </script>
+        </script>-->
 
         <?php
         require './view/mainTemplate.php';

@@ -108,6 +108,7 @@ li.dropdown {
 
 .dropdown:hover .dropdown-content {
     display: block;
+    z-index: 1;
 }
 
 

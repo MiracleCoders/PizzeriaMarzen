@@ -1,4 +1,3 @@
-
 <div class="form-register">
     <div class="inner">
         <form action="index.php" method="POST" enctype="multipart/form-data">

@@ -1,4 +1,7 @@
-<?php require './controller/loginForm.php'; ?>
+<?php
+require './controller/loginForm.php';
+require './controller/productMgmt.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,56 +32,57 @@
 
                                 <form action="index.php" method="POST" enctype="multipart/form-data">
                                     <?php
-                                    if (isset($_SESSION['userLogin'])) { 
-                                            ?>
-                                            Zalogowany użytkownik: <?php echo $_SESSION['userLogin']; ?>
-                                            <input type="submit" name="btn-Logout" value="Wyloguj się"/>
-                                            <?php
-                                        }
+                                    if (isset($_SESSION['userLogin'])) {
                                         ?>
-                                    </form>
+                                        Zalogowany użytkownik: <?php echo $_SESSION['userLogin']; ?>
+                                        <input type="submit" name="btn-Logout" value="Wyloguj się"/>
+                                        <?php
+                                    }
+                                    ?>
+                                </form>
 
-                                    <?php
-                                }
-                                $dir = $_SERVER["PHP_SELF"];
-                                //var_dump($_SESSION);
+                                <?php
+                            }
+                            $dir = $_SERVER["PHP_SELF"];
+                            //var_dump($_SESSION);
 //                            require "./controller/loginForm.php";
-                                ?>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="mainMenu">
-                        <div class="col-12">
-                            <ul>
-                                <li><a class="active" href="#home">Strona główna</a></li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropbtn">Menu</a>
-                                    <div class="dropdown-content">
-                                        <a href="#">Pizza</a>
-                                        <a href="#">Fast food</a>
-                                        <a href="#">Sałatki</a>
-                                    </div>
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropbtn">Administracja</a>
-                                    <div class="dropdown-content">
-                                        <a href="#">Zarządzanie produktami</a>
-                                        <a href="#">Zarządzanie pracownikami</a>
-                                        <a href="#">Zarządzanie promocjami</a>
-                                        <a href="#">Opcje strony</a>
-                                    </div>
-                                </li>
-                            </ul>
+                            ?>
                         </div>
                     </div>
 
-                    <div class="mainContent">
-                        <div class="col-12">
-                            MAIN CONTENT
+                </div>
+
+                <div class="mainMenu">
+                    <div class="col-12">
+                        <ul>
+                            <li><a class="active" href="#home">Strona główna</a></li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn" id="btn-showProducts">Menu</a>
+                                <div class="dropdown-content">
+                                    <a href="#">Pizza</a>
+                                    <a href="#">Fast food</a>
+                                    <a href="#">Sałatki</a>
+                                </div>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Administracja</a>
+                                <div class="dropdown-content">
+                                    <a href="#" id="btn-productMgmt">Zarządzanie produktami</a>
+                                    <a href="#">Zarządzanie pracownikami</a>
+                                    <a href="#">Zarządzanie promocjami</a>
+                                    <a href="#">Opcje strony</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mainContent">
+                    <div class="col-12">
+                        <!--MAIN CONTENT-->
+                        <div id="dynamicContent">
                             <br/>
 
                             <div class="tile">
@@ -110,23 +114,23 @@
                                     Kafelek 1
                                 </div>
                             </div>
-
-                        </div
+                        </div>
                     </div>
-
-
-
                 </div>
-                <div class="mainFooter">
-                    <div class="col-12">
-                        <!--FOOTER-->
-                    </div>
+
+
+
+            </div>
+            <div class="mainFooter">
+                <div class="col-12">
+                    <!--FOOTER-->
                 </div>
             </div>
-        </body>
+        </div>
+    </body>
 
-        <script src="./scripts/scripts.js" type="text/javascript"></script>
-    </html>
+    <script src="./scripts/scripts.js" type="text/javascript"></script>
+</html>
 
 
 <?php
