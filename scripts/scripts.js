@@ -1,3 +1,13 @@
+function createDOMElement(select,insertedID,addr) {
+    element = document.createElement("div");
+    element.setAttribute("id",insertedID);
+    $(select).append(element);
+    if (addr) $("#"+insertedID).load(addr);
+}
+
+function removeDOMElement(select) {
+    $(select).detach();
+}
 //dynamicContent
 function closeDynamicContent() {
     dynamicContent = document.getElementById("dynamicContent");
@@ -6,38 +16,22 @@ function closeDynamicContent() {
 
 //Rejestracja
 $("#btn-signIn").on("click", function () {
-    if (!document.getElementById("registerForm")) {
-        regDiv = document.createElement("div");
-        regDiv.setAttribute("id", "registerForm");
-        document.getElementsByClassName("mainContent")[0].appendChild(regDiv);
-        $("#registerForm").load("./view/loginForm.php");
-    }
+    if (!$("#registerForm")[0]) createDOMElement(".mainContent","registerForm","./view/loginForm.php");
 });
 
 function closeRegisterForm() {
-    registerFormByID = document.getElementById("registerForm");
-    if (registerFormByID) registerFormByID.parentNode.removeChild(registerFormByID);
+    removeDOMElement("#registerForm");
 }
 
 //Produkty
 $("#btn-showProducts").on("click", function () {
-    closeDynamicContent();
-    if (!document.getElementById("showProducts")) {
-        regDiv = document.createElement("div");
-        regDiv.setAttribute("id", "showProducts");
-        document.getElementsByClassName("mainContent")[0].appendChild(regDiv);
-        $("#showProducts").load("./view/showProducts.php");
-    }
+    removeDOMElement("#showProducts");
+    if (!$("#showProducts")[0]) createDOMElement(".mainContent","showProducts","./view/showProducts.php");
 });
 
 //Zarządzanie produktami
 $("#btn-productMgmt").on("click", function () {
-    closeDynamicContent();
-    if (!document.getElementById("form-productMgmt")) {
-        regDiv = document.createElement("div");
-        regDiv.setAttribute("id", "form-productMgmt");
-        document.getElementsByClassName("mainContent")[0].appendChild(regDiv);
-        $("#form-productMgmt").load("./view/productMgmt.php");
-    }
+    removeDOMElement("#form-productMgmt");
+    if (!$("#showProducts")[0]) createDOMElement(".mainContent","form-productMgmt","./view/productMgmt.php");
 });
 
