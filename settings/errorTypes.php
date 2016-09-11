@@ -15,6 +15,8 @@ $allErrors = array(
     211 => "Podany login już istnieje.",
     212 => "Podany adres e-mail już istnieje.",
     299 => "Nieznany błąd logowania.",
+    
+    300 => "Wypełnij wszystkie pola",
 // Brak błędu
     0 => "Brak błędu."
 );

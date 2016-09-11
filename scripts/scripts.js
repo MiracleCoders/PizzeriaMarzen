@@ -35,3 +35,9 @@ $("#btn-productMgmt").on("click", function () {
     if (!$("#form-productMgmt")[0]) createDOMElement(".mainContent>.col-12","form-productMgmt","./view/productMgmt.php");
 });
 
+//Zarządzanie składnikami
+$("#btn-ingredientMgmt").on("click", function () {
+    removeDOMElement("#form-ingredientMgmt");
+    if (!$("#form-ingredientMgmt")[0]) createDOMElement(".mainContent>.col-12","form-ingredientMgmt","./view/ingredientMgmt.php");
+});
+

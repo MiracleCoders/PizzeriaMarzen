@@ -1,6 +1,7 @@
 <?php
 require './controller/loginForm.php';
 require './controller/productMgmt.php';
+require './controller/ingredientMgmt.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,6 +71,7 @@ require './controller/productMgmt.php';
                                 <a href="#" class="dropbtn">Administracja</a>
                                 <div class="dropdown-content">
                                     <a href="#" id="btn-productMgmt">Zarządzanie produktami</a>
+                                    <a href="#" id="btn-ingredientMgmt">Zarządzanie składnikami</a>
                                     <a href="#">Zarządzanie pracownikami</a>
                                     <a href="#">Zarządzanie promocjami</a>
                                     <a href="#">Opcje strony</a>
