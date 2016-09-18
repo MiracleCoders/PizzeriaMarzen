@@ -8,14 +8,16 @@ $allIngredients = $ingredients->fetchIngredients();
 </div>
 <div class="form-productMgmt">
     <div class="inner">
-        <form action="index.php" method="POST" enctype="multipart/form-data">
+        <form action="index.php" method="POST" enctype="multipart/form-data" class="form-productMgmt">
             Nazwa <input type="text" name="productName"/>            
             Cena <input type="text" name="productPrice"/>
             Opis <input type="text" name="productDescription"/>
-                <?php foreach ($allIngredients as $ingredient) { ?>
+            <?php foreach ($allIngredients as $ingredient) { ?>
+            <div class="inputRow">
                 <input type="checkbox" name="check_ingredients[]" value="<?php echo $ingredient['id_ingredient']; ?>">
-                        <?php echo $ingredient['name']; ?>
-                <?php } ?>
+                <label class="validate"><?php echo $ingredient['name']; ?></label>
+            </div>
+            <?php } ?>
             <input type="submit" name="btn-addProduct" value="Dodaj produkt"/>
         </form>
     </div>

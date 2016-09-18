@@ -35,7 +35,7 @@ require './controller/ingredientMgmt.php';
                                     <?php
                                     if (isset($_SESSION['userLogin'])) {
                                         ?>
-                                        Zalogowany użytkownik: <?php echo $_SESSION['userLogin']; ?>
+                                        Witaj, <?php echo $_SESSION['userLogin']; ?>
                                         <input type="submit" name="btn-Logout" value="Wyloguj się"/>
                                         <?php
                                     }
@@ -87,35 +87,7 @@ require './controller/ingredientMgmt.php';
                         <div id="dynamicContent">
                             <br/>
 
-                            <div class="tile">
-                                <div class="inner">
-                                    Kafelek 1
-                                </div>
-                            </div>
-
-                            <div class="tile">
-                                <div class="inner">
-                                    Kafelek 1
-                                </div>
-                            </div>
-
-                            <div class="tile">
-                                <div class="inner">
-                                    Kafelek 1
-                                </div>
-                            </div>
-
-                            <div class="tile">
-                                <div class="inner">
-                                    Kafelek 1
-                                </div>
-                            </div>
-
-                            <div class="tile">
-                                <div class="inner">
-                                    Kafelek 1
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

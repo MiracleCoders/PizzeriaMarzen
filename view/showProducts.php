@@ -10,23 +10,29 @@ foreach ($allProducts as $product) {
             <div class="productTitle">
                 <?php echo $product['name']; ?>
             </div>
+            <div class="productIngredients">
+                <ul>
+                    <?php
+                    $allIngredients = $products->fetchProductIngredients($product['id_product']);
+                    $copy = $allIngredients;
+                    foreach ($allIngredients as $ingredient) {
+                        ?> 
+                        <li> 
+                            <?php
+                            echo $ingredient['name'];
+                            if (next($copy)) {
+                                echo ',';
+                            }
+                            ?> 
+                        </li> 
+    <?php } ?>
+                </ul>
+            </div>
             <div class="productDescription">
                 Opis: <?php echo $product['description']; ?>
             </div>
             <div class="productPrice">
                 Cena: <?php echo $product['price']; ?> zł
-            </div>
-            <div class="productPrice">
-                Składniki: <ul>
-                    <?php
-                    $allIngredients = $products->fetchProductIngredients($product['id_product']);
-                    foreach ($allIngredients as $ingredient) {
-                        ?> 
-                        <li> 
-                            <?php echo $ingredient['name']; ?> 
-                        </li> 
-                    <?php } ?>
-                </ul>
             </div>
         </div>
     </div>
