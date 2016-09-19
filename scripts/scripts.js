@@ -41,3 +41,8 @@ $("#btn-ingredientMgmt").on("click", function () {
     if (!$("#form-ingredientMgmt")[0]) createDOMElement(".mainContent>.col-12","form-ingredientMgmt","./view/ingredientMgmt.php");
 });
 
+//Pokaż koszyk
+$("#btn-showCart").on("click", function () {
+    removeDOMElement("#form-showCart");
+    if (!$("#form-showCart")[0]) createDOMElement(".mainContent>.col-12","form-showCart","./view/productOrder.php");
+});

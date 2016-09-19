@@ -114,6 +114,7 @@ class userService {
         unset($this->login);
         unset($_SESSION['userId']);
         unset($_SESSION['userLogin']);
+        unset($_SESSION['order']);
         session_destroy();
     }
 

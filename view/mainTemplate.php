@@ -2,6 +2,7 @@
 require './controller/loginForm.php';
 require './controller/productMgmt.php';
 require './controller/ingredientMgmt.php';
+require './controller/productOrder.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,6 +38,7 @@ require './controller/ingredientMgmt.php';
                                         ?>
                                         Witaj, <?php echo $_SESSION['userLogin']; ?>
                                         <input type="submit" name="btn-Logout" value="Wyloguj się"/>
+                                        <input type="submit" name="btn-showCart" value="Koszyk"/>
                                         <?php
                                     }
                                     ?>
@@ -64,6 +66,7 @@ require './controller/ingredientMgmt.php';
                                     <a href="#">Pizza</a>
                                     <a href="#">Fast food</a>
                                     <a href="#">Sałatki</a>
+                                    <a href="#" id="btn-showCart">Koszyk</a>
                                 </div>
                             </li>
 

@@ -7,6 +7,12 @@ foreach ($allProducts as $product) {
     ?>
     <div class = "tile">
         <div class = "inner">
+            <div class="form-shoppingCart">
+                <form action="index.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="value-productID" value="<?php echo $product['id_product']; ?>">
+                    <input type="submit" name="btn-addToCart" value="Zamów">
+                </form>
+            </div>
             <div class="productTitle">
                 <?php echo $product['name']; ?>
             </div>
@@ -25,7 +31,7 @@ foreach ($allProducts as $product) {
                             }
                             ?> 
                         </li> 
-    <?php } ?>
+                    <?php } ?>
                 </ul>
             </div>
             <div class="productDescription">
@@ -33,7 +39,7 @@ foreach ($allProducts as $product) {
             </div>
             <div class="productPrice">
                 Cena: <?php echo $product['price']; ?> zł
-            </div>
+            </div>            
         </div>
     </div>
     <?php

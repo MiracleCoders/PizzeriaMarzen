@@ -98,3 +98,5 @@ Host SQL:   mysql.hostinger.pl
         <?php
         require './view/mainTemplate.php';
         
+        
+//        var_dump ($_SESSION);
