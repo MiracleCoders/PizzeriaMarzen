@@ -1,32 +1,14 @@
 <?php
-include_once "./include/userService.php";
+
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include_once $_SERVER['DOCUMENT_ROOT']."/PizzeriaMarzen/init/dbConnect.php";
-include_once 'include/userData.php';
 
-
-$dir = '//' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-
-// Funkcja wyświetlająca alert z tekstem
-function msgBox($txt) {
-    echo sprintf("<script type=\"text/javascript\">alert(\"%s\");</script>", $txt);
+if (!isset($_SESSION['mainPage'])) {
+    $_SESSION['mainPage']=true;
 }
 
-function msgBox2($txt) {
-    echo sprintf("<script type=\"text/javascript\">debug=\"%s\";</script>", $txt);
-}
-
-// Jeżeli użytkownik jest zalogowany to trzeba stworzyć obiekt user i loggedUser
-// bo przy każdym odświeżeniu strony znika
-if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] != "") {
-    $user = new userData();
-    $user->id = $_SESSION['userId'];
-    $user->login = $_SESSION['userLogin'];
-    $loggedUser = new userService($user);
-}
-
+include_once "./init/loader.php";
 
 //usuwanie użytkownika
 if (isset($_POST['btn-deleteUser'])) {
@@ -54,19 +36,7 @@ if (isset($_POST['btn-deleteUser'])) {
 //}
 
 //do zmiennej $allUsers przypisujemy wartość pochodzącą z wywołania metody pobierającej dane wszystkich użytkowników
-$user = new userData();
-$allUsers = $user->fetchAllUsers();
 
-$tmp = new userData();
-$tmp->login = "test4";
-$tmp->password = "pass4";
-
-
-$tmp2 = new userService($tmp);
-echo "Test: " . $tmp2->checkUserExist($tmp);
-if ($tmp2->checkUserExist($tmp) == 0) {
-    $tmp2->registerUser($tmp);
-}
 ?>
 
 <!--<!DOCTYPE html>
@@ -86,15 +56,9 @@ Host SQL:   mysql.hostinger.pl
     </head>
     <body>
         <script type="text/javascript">
-            debug = 0;
-            debugTimer = setInterval(function () {
-                if (debug != 0) {
-                    alert(debug);
-                    debug = 0;
-                }
-            }, 100);
+            
         </script>-->
 
         <?php
-        require './view/mainTemplate.php';
+        //require './view/mainTemplate.php';
         

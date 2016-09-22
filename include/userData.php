@@ -79,4 +79,8 @@ class userData {
         }
     }
 
+    //WYBIERANIE UŻYTKOWNIKA
+    public function selectUser($id) {
+        
+    }
 }

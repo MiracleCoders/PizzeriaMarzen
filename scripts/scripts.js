@@ -1,37 +1,41 @@
-function createDOMElement(select,insertedID,addr) {
+debug = 0;
+/*debugTimer = setInterval(function () {
+    if (debug != 0) {
+        alert(debug);
+        debug = 0;
+    }
+}, 100);*/
+
+function createDOMElement(select, insertedID, addr) {
     element = document.createElement("div");
-    element.setAttribute("id",insertedID);
+    element.setAttribute("id", insertedID);
     $(select).append(element);
-    if (addr) $("#"+insertedID).load(addr);
+    if (addr)
+        $("#" + insertedID).load(addr);
 }
 
 function removeDOMElement(select) {
-    $(select).detach();
+    if ($(select)[0])
+        $(select).remove();
 }
+
 //dynamicContent
 function closeDynamicContent() {
-    dynamicContent = document.getElementById("dynamicContent");
-    if (dynamicContent) dynamicContent.parentNode.removeChild(dynamicContent);
-}
-
-//Rejestracja
-$("#btn-signIn").on("click", function () {
-    if (!$("#registerForm")[0]) createDOMElement(".mainContent","registerForm","./view/loginForm.php");
-});
-
-function closeRegisterForm() {
-    removeDOMElement("#registerForm");
+    removeDOMElement("#productsList");
+    removeDOMElement("#form-productMgmt");
 }
 
 //Produkty
 $("#btn-showProducts").on("click", function () {
     removeDOMElement("#showProducts");
-    if (!$("#showProducts")[0]) createDOMElement(".mainContent","showProducts","./view/showProducts.php");
+    if (!$("#showProducts")[0])
+        createDOMElement(".mainContent", "showProducts", "./view/showProducts.php");
 });
 
 //Zarządzanie produktami
 $("#btn-productMgmt").on("click", function () {
     removeDOMElement("#form-productMgmt");
-    if (!$("#showProducts")[0]) createDOMElement(".mainContent","form-productMgmt","./view/productMgmt.php");
+    if (!$("#form-productMgmt")[0])
+        createDOMElement(".mainContent", "form-productMgmt", "./view/productMgmt.php");
 });
 
