@@ -23,6 +23,6 @@
             }
             ?>
         </form>
-        <input type="button" onclick="closeRegisterForm()" value="Zamknij" />
+        <input type="button" onclick="removeDOMElement('#registerForm')" value="Zamknij" />
     </div>
 </div>

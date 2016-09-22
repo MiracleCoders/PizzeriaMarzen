@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./view/styles/style.css">
         <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
         <title></title>
     </head>
 
@@ -31,7 +32,6 @@
                                         ?>
                                         Zalogowany użytkownik: <?php echo $_SESSION['loggedUserName'] ? $_SESSION['loggedUserName'] : $_SESSION['loggedUserLogin']; ?>
                                         <input type="submit" name="btn-Logout" value="Wyloguj się"/>
-                                        <input type="submit" name="btn-showCart" value="Koszyk"/>
                                         <?php
                                     }
                                     ?>
@@ -59,8 +59,6 @@
                                     <a href="#">Pizza</a>
                                     <a href="#">Fast food</a>
                                     <a href="#">Sałatki</a>
-                                    <a href="#" id="btn-showCart">Koszyk</a>
-                                    <a href="#" id="btn-finalizeOrder">Finalizuj zamówienie</a>
                                 </div>
                             </li>
 
@@ -68,13 +66,11 @@
                                 <a href="#" class="dropbtn">Administracja</a>
                                 <div class="dropdown-content">
                                     <a href="#" id="btn-productMgmt">Zarządzanie produktami</a>
-                                    <a href="#" id="btn-ingredientMgmt">Zarządzanie składnikami</a>
                                     <a href="#">Zarządzanie pracownikami</a>
                                     <a href="#">Zarządzanie promocjami</a>
                                     <a href="#">Opcje strony</a>
                                 </div>
                             </li>
-                            <li><a href="#" class="active" id="btn-showPendingOrders">Pokaż zamówienia</a></li>
                         </ul>
                     </div>
                 </div>
@@ -85,10 +81,41 @@
                         <div id="dynamicContent">
                             <br/>
 
+                            <div class="tile">
+                                <div class="inner">
+                                    Kafelek 1
+                                </div>
+                            </div>
 
+                            <div class="tile">
+                                <div class="inner">
+                                    Kafelek 1
+                                </div>
+                            </div>
+
+                            <div class="tile">
+                                <div class="inner">
+                                    Kafelek 1
+                                </div>
+                            </div>
+
+                            <div class="tile">
+                                <div class="inner">
+                                    Kafelek 1
+                                </div>
+                            </div>
+
+                            <div class="tile">
+                                <div class="inner">
+                                    Kafelek 1
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
             <div class="mainFooter">
                 <div class="col-12">
@@ -102,6 +129,5 @@
     <script src="./scripts/scripts.js" type="text/javascript"></script>
 </html>
 
+
 <?php
-//
-var_dump ($_SESSION);

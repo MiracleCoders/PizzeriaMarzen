@@ -7,14 +7,14 @@ include_once 'settings/errorTypes.php';
 //2. Sprawdzania poprawnności danych
 class userService {
 
-    protected $id;
-    protected $login;
-    protected $password;
-    protected $name;
-    protected $lastName;
+    public $login;
+    public $password;
+    public $name;
+    public $lastName;
     public $errType;
 
-    public function userService(userData $userData) {
+    // Konstruktor w nowym stylu
+    public function __construct(userData $userData) {
         $this->id = $userData->id;
         $this->login = $userData->login;
         $this->password = $userData->password;
@@ -23,7 +23,7 @@ class userService {
     }
 
     public function loginUser() {
-        if (isset($_SESSION['userLogin'])) {
+        if (isset($_SESSION['loggedUserID'])) {
             return $errType = 203; // Jest już zalogowany
         } else {
             if ($this->login != "") {
@@ -35,19 +35,25 @@ class userService {
                         $query->execute();
 
                         if ($query->rowCount() > 0) {
-                            $query = $db->prepare("SELECT id_user, password FROM users WHERE login=? AND password=?");
+                            $query = $db->prepare("SELECT * FROM users WHERE login=? AND password=?");
                             $query->bindValue(1, $this->login);
                             $query->bindValue(2, $this->password);
                             $query->execute();
+                            $result=$query->fetch(PDO::FETCH_ASSOC);
 
 
                             if ($query->rowCount() > 0) {
-                                $id = $query->fetch();
-                                $this->id = $id['id_user'];
-                                $_SESSION['userId'] = $id['id_user'];
-                                $_SESSION['userLogin'] = $this->login;
-                                $_SESSION['name'] = $this->name;
-                                $_SESSION['lastName'] = $this->lastName;
+                                $_SESSION['loggedUserID'] = $result['id_user'];
+                                $_SESSION['loggedUserLogin'] = $result['login'];
+                                $_SESSION['loggedUserName'] = $result['name'];
+                                $_SESSION['loggedUserLastName'] = $result['lastName'];
+                                $_SESSION['loggedUserPrivileges'] = $result['privileges'];
+                                $this->id=$result['id_user'];
+                                $this->login=$result['login'];
+                                $this->password=$result['password'];
+                                $this->name=$result['name'];
+                                $this->lastName=$result['lastName'];
+                                $this->privileges=$result['privileges'];
                             } else {
                                 return $errType = 201; // Nieprawidłowe hasło
                             }
@@ -67,7 +73,7 @@ class userService {
         }
         /*
           if ($this->login != "" && $this->password != "") {
-          if (!isset($_SESSION['userLogin'])) {
+          if (!isset($_SESSION['loggedUserID'])) {
           try {
           global $db;
           $query = $db->prepare("SELECT login FROM users WHERE login = ?");
@@ -84,7 +90,7 @@ class userService {
           $query->execute();
 
           if ($query->rowCount() > 0) {
-          $_SESSION['userLogin'] = $this->login;
+          $_SESSION['loggedUserID'] = $this->login;
           $_SESSION['name'] = $this->name;
           $_SESSION['lastName'] = $this->lastName;
           } else {
@@ -114,12 +120,10 @@ class userService {
     }
 
     public function logoutUser() {
-        unset($this->id);
-        unset($this->login);
-        unset($_SESSION['userId']);
-        unset($_SESSION['userLogin']);
-        unset($_SESSION['order']);
-        session_destroy();
+        if (isset($_SESSION['loggedUserID'])) {
+            $_SESSION['lastLoggedUserID'] = $_SESSION['loggedUserID'];
+        }
+        unset($_SESSION['loggedUserID']);
     }
 
     public function checkUserExist(userData $user) {
