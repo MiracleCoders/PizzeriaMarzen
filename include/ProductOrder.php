@@ -49,4 +49,73 @@ class ProductOrder {
         $_SESSION['order'] = array_values($_SESSION['order']);
     }
 
+    public function finalizeOrder($products) {
+        $date = date("Y-m-d H:i:s");
+        $userID = $_SESSION['userId'];
+        //Insert order into db
+        try {
+            global $db;
+            $query = $db->prepare("INSERT INTO orders (id_user, date) VALUES (?,?)");
+            $query->bindValue(1, $userID);
+            $query->bindValue(2, $date);
+            $query->execute();
+            $orderID = $db->lastInsertId();
+
+            //Insert order detalis into db
+            foreach ($products as $product) {
+                foreach ($product as $specifiedProduct) {
+                    try {
+                        global $db;
+                        $query = $db->prepare("INSERT INTO order_product (id_order, id_product, price) VALUES (?,?,?)");
+                        $query->bindValue(1, $orderID);
+                        $query->bindValue(2, $product[0]['id_product']);
+                        $query->bindValue(3, $product[0]['price']);
+                        $query->execute();
+                    } catch (PDOException $ex) {
+                        echo $ex->getMessage();
+                    }
+                }
+            }
+            // return $order;
+        } catch (PDOException $ex) {
+            $ex->getMessage();
+        }
+    }
+
+    public function showPendingOrders() {
+        try {
+            global $db;
+            $query = $db->prepare("SELECT * FROM orders");
+            $query->execute();
+            return $query->fetchAll();
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    
+//    public function getProductName() {
+//        try {
+//            global $db;
+//            $query = $db->prepare("SELECT * FROM products WHERE ");
+//            $query->execute();
+//            return $query->fetchAll();
+//        } catch (PDOException $ex) {
+//            echo $ex->getMessage();
+//        }
+//    }
+    
+    public function changeStatus($orderID, $statusID) {
+        try {
+            global $db;
+            $nextStatus = $statusID + 1;
+            $query = $db->prepare("UPDATE orders SET id_status=? WHERE id_order=?");
+            $query->bindValue(1, $nextStatus);
+            $query->bindValue(2, $orderID);
+            $query->execute();
+            
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
 }

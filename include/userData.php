@@ -16,7 +16,6 @@ class userData {
     //POBRANIE UŻYTKOWNIKÓW
     public function fetchAllUsers() {
         try {
-
             global $db;
             $query = $db->prepare("SELECT * FROM users");
             $query->execute();

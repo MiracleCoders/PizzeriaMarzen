@@ -12,12 +12,6 @@ if (empty($products)) {
             ?>
             <div class = "tile">
                 <div class = "inner">
-                    <div class="form-shoppingCart">
-                        <form action="index.php" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="value-productID" value="<?php echo $product[0]['id_product']; ?>">
-                            <input type="submit" name="btn-deleteFromCart" value="Usuń">
-                        </form>
-                    </div>
                     <div class="productTitle">
                         <?php echo $product[0]['name']; ?>
                     </div>
@@ -37,6 +31,10 @@ if (empty($products)) {
         }
     }
     ?>
-    <a href="#" id="btn-finalizeOrder">Przejdź do zamówienia</a>
+    <div class="form-shoppingCart">
+        <form action="index.php" method="POST" enctype="multipart/form-data">
+            <input type="submit" name="btn-finalizeOrder" value="Złóż zamówienie">
+        </form>
+    </div>
     <?php
 }

@@ -20,7 +20,7 @@ if (isset($_POST['btn-Login'])) {
                 echo "<br />" . $allErrors[$errType] . ' (Error: ' . $errType . ')';
             } else {
                 // Logowanie zakończone sukcesem
-                $_SESSION['userId'] = $user->id;
+//                $_SESSION['userId'] = $user->id;
                 $_SESSION['userLogin'] = $user->login;
             //    header("Location: " . basename(__FILE__));
             }

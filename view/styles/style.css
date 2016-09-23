@@ -200,6 +200,8 @@ div.form-register > div.inner > form   {
 .userLogin {
     font-size: 17px;
     background-color: rgba(0, 0, 0, 0.58);
+    width: 170px;
+    float: right;
 }
 
 .inputRow {

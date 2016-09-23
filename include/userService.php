@@ -7,6 +7,7 @@ include_once 'settings/errorTypes.php';
 //2. Sprawdzania poprawnności danych
 class userService {
 
+    protected $id;
     protected $login;
     protected $password;
     protected $name;
@@ -34,13 +35,16 @@ class userService {
                         $query->execute();
 
                         if ($query->rowCount() > 0) {
-                            $query = $db->prepare("SELECT password FROM users WHERE login=? AND password=?");
+                            $query = $db->prepare("SELECT id_user, password FROM users WHERE login=? AND password=?");
                             $query->bindValue(1, $this->login);
                             $query->bindValue(2, $this->password);
                             $query->execute();
 
+
                             if ($query->rowCount() > 0) {
-                                $_SESSION['userId'] = $this->id;
+                                $id = $query->fetch();
+                                $this->id = $id['id_user'];
+                                $_SESSION['userId'] = $id['id_user'];
                                 $_SESSION['userLogin'] = $this->login;
                                 $_SESSION['name'] = $this->name;
                                 $_SESSION['lastName'] = $this->lastName;
@@ -122,8 +126,8 @@ class userService {
         $userData = new userService($user);
 
         $query = $userData->getUserData($user);
-        
-        if ($query != NULL && is_object($query) ) {
+
+        if ($query != NULL && is_object($query)) {
             return $query->rowCount();
         } else {
             return false;
@@ -150,7 +154,7 @@ class userService {
             global $db;
             $query = $db->prepare($query);
             $query->execute();
-            
+
             return $query;
         } catch (PDOException $ex) {
             $ex->getMessage();
@@ -159,10 +163,10 @@ class userService {
 
     public function registerUser(userData $user) {
         $userData = new userService($user);
-        
-        $testUser=$userData->checkUserExist($user);
-        
-        if ($testUser==0||$testUser==""||$testUser==false) {
+
+        $testUser = $userData->checkUserExist($user);
+
+        if ($testUser == 0 || $testUser == "" || $testUser == false) {
             $login = $user->login;
             $password = $user->password;
             global $db;
@@ -179,5 +183,5 @@ class userService {
         // Sprawdzanie poprawności danych
         return 0;
     }
-}
 
+}

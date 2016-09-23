@@ -46,3 +46,15 @@ $("#btn-showCart").on("click", function () {
     removeDOMElement("#form-showCart");
     if (!$("#form-showCart")[0]) createDOMElement(".mainContent>.col-12","form-showCart","./view/productOrder.php");
 });
+
+//Pokaż zamówienie
+$("#btn-finalizeOrder").on("click", function () {
+    removeDOMElement("#form-finalizeOrder");
+    if (!$("#form-finalizeOrder")[0]) createDOMElement(".mainContent>.col-12","form-finalizeOrder","./view/finalizeOrder.php");
+});
+
+//Pokaż zamówienie
+$("#btn-showPendingOrders").on("click", function () {
+    removeDOMElement("#form-finalizeOrder");
+    if (!$("#form-pendingOrders")[0]) createDOMElement(".mainContent>.col-12","form-pendingOrders","./view/showPendingOrders.php");
+});

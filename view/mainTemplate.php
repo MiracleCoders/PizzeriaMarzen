@@ -3,6 +3,8 @@ require './controller/loginForm.php';
 require './controller/productMgmt.php';
 require './controller/ingredientMgmt.php';
 require './controller/productOrder.php';
+require './controller/finalizeOrder.php';
+require './controller/pendingOrders.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +12,6 @@ require './controller/productOrder.php';
         <meta charset="UTF-8">
         <link rel="stylesheet" href="<?php echo $dir; ?>/view/styles/style.css">
         <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-
         <title></title>
     </head>
 
@@ -67,6 +68,7 @@ require './controller/productOrder.php';
                                     <a href="#">Fast food</a>
                                     <a href="#">Sałatki</a>
                                     <a href="#" id="btn-showCart">Koszyk</a>
+                                    <a href="#" id="btn-finalizeOrder">Finalizuj zamówienie</a>
                                 </div>
                             </li>
 
@@ -80,6 +82,7 @@ require './controller/productOrder.php';
                                     <a href="#">Opcje strony</a>
                                 </div>
                             </li>
+                            <li><a href="#" class="active" id="btn-showPendingOrders">Pokaż zamówienia</a></li>
                         </ul>
                     </div>
                 </div>
@@ -90,13 +93,10 @@ require './controller/productOrder.php';
                         <div id="dynamicContent">
                             <br/>
 
-                           
+
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
             <div class="mainFooter">
                 <div class="col-12">
@@ -109,5 +109,6 @@ require './controller/productOrder.php';
     <script src="./scripts/scripts.js" type="text/javascript"></script>
 </html>
 
-
 <?php
+//
+//var_dump ($_SESSION);
