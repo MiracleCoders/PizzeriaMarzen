@@ -14,7 +14,7 @@ $dbcDBHost = "mysql.hostinger.pl";
 try {
     $db = new PDO('mysql:host=localhost; dbname=pizzeria', 'root', '',
             //ustawiamy utf8 -> polskie znaki!
-            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'", PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC));
 //        $db = new PDO("mysql:host=$dbcDBHost;dbname=$dbcDBName",$dbcDBUser,$dbcDBPsw);
     //Ustawiamy wyświetlanie błędów
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

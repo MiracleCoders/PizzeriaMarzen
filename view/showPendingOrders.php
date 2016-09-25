@@ -42,14 +42,27 @@ foreach ($products as $product) {
             <div class="productDescription">
                 Data zamówienia: <?php echo $product['date']; ?>
             </div>
+            <div class="productDescription">
+                Nazwa użytkownika: <?php echo $product['user_name']; ?>
+            </div>
+            <div class="productDescription">
+                Nazwy produktów:
+                <?php
+                $orderdetails = $productOrder->getOrderDetails($product['id_order']);
+
+                foreach ($orderdetails as $details) {
+                    echo $details['name']."<br/>";
+                }
+                ?>
+
+            </div>
             <div class="productPrice">
-                Status: <?php echo $product['id_status']; ?>
+                Status: <?php echo $product['id_status']; ?>. <?php echo $product['status_name']; ?>
             </div>            
         </div>
     </div>
     <?php
-//    echo $product['id_order'];
-//    echo $product['id_user'];
-//    echo $product['date'];
-//    echo $product['status'];
 }
+echo "<pre>";
+var_dump($products);
+echo "</pre>";
