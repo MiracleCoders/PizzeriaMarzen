@@ -33,7 +33,7 @@ if (empty($products)) {
                 </div>
             </div>
             <?php
-            echo $specifiedProduct[0]['name'];
+           // echo $specifiedProduct[0]['name'];
         }
     }
     ?>

@@ -27,12 +27,14 @@ if (empty($products)) {
                 </div>
             </div>
             <?php
-            echo $specifiedProduct[0]['name'];
+            //  echo $specifiedProduct[0]['name'];
         }
     }
     ?>
     <div class="form-shoppingCart">
         <form action="index.php" method="POST" enctype="multipart/form-data">
+            Imię <input type="text" name="txt-name">
+            Nazwisko <input type="text" name="txt-lastName">
             <input type="submit" name="btn-finalizeOrder" value="Złóż zamówienie">
         </form>
     </div>

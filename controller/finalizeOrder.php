@@ -9,6 +9,21 @@ if (isset($_POST['btn-finalizeOrder'])) {
     if (empty($products)) {
         echo "Twój koszyk jest pusty.";
     } else {
+        $userData = new userData();
+
+
+        $userData->id = $_SESSION['userId'];
+        if ($_POST['txt-name'] != "") {
+            $userData->name = $_POST['txt-name'];
+        }
+
+        if ($_POST['txt-lastName'] != "") {
+            $userData->lastName = $_POST['txt-lastName'];
+        }
+
+        $userService = new userService($userData);
+        $userService->updateUserData();
+
         $order->finalizeOrder($products);
         echo "OK";
     }

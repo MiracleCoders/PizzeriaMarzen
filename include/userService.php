@@ -184,4 +184,24 @@ class userService {
         return 0;
     }
 
+    public function updateUserData() {
+        global $db;
+        try {
+            $query = $db->prepare("INSERT INTO user_details (id_user, name, lastName) VALUES (?, ?, ?) "
+                    . "ON DUPLICATE KEY "
+                    . "UPDATE name = ?, lastName = ?");
+
+            $query->bindValue(1, $this->id);
+            $query->bindValue(2, $this->name);
+            $query->bindValue(3, $this->lastName);
+
+            $query->bindValue(4, $this->name);
+            $query->bindValue(5, $this->lastName);
+
+            $query->execute();
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
 }

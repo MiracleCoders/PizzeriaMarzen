@@ -101,7 +101,7 @@ class ProductOrder {
     public function showPendingOrders() {
         try {
             global $db;
-            $query = $db->prepare("SELECT o.id_order, o.id_user, o.id_status, o.date, s.name AS status_name, u.login AS user_name "
+            $query = $db->prepare("SELECT o.id_order, o.id_user, o.id_status, o.date, s.name AS status_name, s.color, u.login AS user_name "
                     . "FROM orders o "
                     . "LEFT JOIN status s ON s.id_status = o.id_status "
                     . "LEFT JOIN users u ON u.id_user = o.id_user");
@@ -123,10 +123,23 @@ class ProductOrder {
 //        }
 //    }
 
-    public function changeStatus($orderID, $statusID) {
+    public function nextStatus($orderID, $statusID) {
         try {
             global $db;
             $nextStatus = $statusID + 1;
+            $query = $db->prepare("UPDATE orders SET id_status=? WHERE id_order=?");
+            $query->bindValue(1, $nextStatus);
+            $query->bindValue(2, $orderID);
+            $query->execute();
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    
+    public function prevStatus($orderID, $statusID) {
+        try {
+            global $db;
+            $nextStatus = $statusID - 1;
             $query = $db->prepare("UPDATE orders SET id_status=? WHERE id_order=?");
             $query->bindValue(1, $nextStatus);
             $query->bindValue(2, $orderID);

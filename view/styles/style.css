@@ -137,6 +137,18 @@ li.dropdown {
     transition: opacity 250ms ease-out;
 }
 
+.taller {
+    height: 150px;
+}
+
+.tileColor1 {
+    color: #404209;
+}
+
+.indent {
+    margin-left: 10px;
+}
+
 .productTitle {
     font-weight: 600;
     font-size: 24;
@@ -266,6 +278,10 @@ input[type=radio]:checked+.validate {
 
 .form-shoppingCart {
     float: right;
+}
+
+.finishOrder {
+    background-color: rgba(4, 255, 0, 0.64) !important;
 }
 
 /*7. TEXT*/

@@ -111,4 +111,4 @@ require './controller/pendingOrders.php';
 
 <?php
 //
-//var_dump ($_SESSION);
+var_dump ($_SESSION);
