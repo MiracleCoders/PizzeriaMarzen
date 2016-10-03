@@ -1,7 +1,6 @@
 <?php
 
-include_once 'settings/errorTypes.php';
-
+include_once $_SERVER['DOCUMENT_ROOT'] . '/PizzeriaMarzen/settings/errorTypes.php';
 //Klasa do obsługi:
 //1. Logowania
 //2. Sprawdzania poprawnności danych
@@ -10,9 +9,16 @@ class userService {
     protected $id;
     protected $login;
     protected $password;
-    protected $name;
-    protected $lastName;
     public $errType;
+    //user_details
+    public $name;
+    public $lastName;
+    public $phoneNumber;
+    public $city;
+    public $postalCode;
+    public $street;
+    public $flatNumber;
+    public $houseNumber;
 
     public function userService(userData $userData) {
         $this->id = $userData->id;
@@ -20,6 +26,12 @@ class userService {
         $this->password = $userData->password;
         $this->name = $userData->name;
         $this->lastName = $userData->lastName;
+        $this->phoneNumber = $userData->phoneNumber;
+        $this->city = $userData->city;
+        $this->postalCode = $userData->postalCode;
+        $this->street = $userData->street;
+        $this->flatNumber = $userData->flatNumber;
+        $this->houseNumber = $userData->houseNumber;
     }
 
     public function loginUser() {
@@ -161,6 +173,20 @@ class userService {
         }
     }
 
+    public function getUserDetails($userID) {
+        try {
+            global $db;
+            $query = $db->prepare('SELECT * FROM user_details WHERE id_user = ?');
+
+            $query->bindValue(1, $userID);
+            $query->execute();
+
+            return $query->fetchAll();
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
     public function registerUser(userData $user) {
         $userData = new userService($user);
 
@@ -187,16 +213,29 @@ class userService {
     public function updateUserData() {
         global $db;
         try {
-            $query = $db->prepare("INSERT INTO user_details (id_user, name, lastName) VALUES (?, ?, ?) "
+            $query = $db->prepare("INSERT INTO user_details (id_user, name, lastName, phoneNumber, city, postalCode, street, flatNumber, houseNumber) "
+                    . "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
                     . "ON DUPLICATE KEY "
-                    . "UPDATE name = ?, lastName = ?");
+                    . "UPDATE name = ?, lastName = ?, phoneNumber = ?, city = ?, postalCode = ?, street = ?, flatNumber = ?, houseNumber = ?");
 
             $query->bindValue(1, $this->id);
             $query->bindValue(2, $this->name);
             $query->bindValue(3, $this->lastName);
+            $query->bindValue(4, $this->phoneNumber);
+            $query->bindValue(5, $this->city);
+            $query->bindValue(6, $this->postalCode);
+            $query->bindValue(7, $this->street);
+            $query->bindValue(8, $this->flatNumber);
+            $query->bindValue(9, $this->houseNumber);
 
-            $query->bindValue(4, $this->name);
-            $query->bindValue(5, $this->lastName);
+            $query->bindValue(10, $this->name);
+            $query->bindValue(11, $this->lastName);
+            $query->bindValue(12, $this->phoneNumber);
+            $query->bindValue(13, $this->city);
+            $query->bindValue(14, $this->postalCode);
+            $query->bindValue(15, $this->street);
+            $query->bindValue(16, $this->flatNumber);
+            $query->bindValue(17, $this->houseNumber);
 
             $query->execute();
         } catch (PDOException $ex) {

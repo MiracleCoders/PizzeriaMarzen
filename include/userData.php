@@ -1,17 +1,25 @@
 <?php
 
-include_once 'settings/userDataSettings.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/PizzeriaMarzen/settings/userDataSettings.php';
 
 //Wykonywanie operacji na użytkownikach
 class userData {
 
+    //user
     public $id;
     public $login;
     public $password;
-    public $name;
-    public $lastName;
     public $email;
     public $privileges;
+    //user_details
+    public $name;
+    public $lastName;
+    public $phoneNumber;
+    public $city;
+    public $postalCode;
+    public $street;
+    public $flatNumber;
+    public $houseNumber;
 
     //POBRANIE UŻYTKOWNIKÓW
     public function fetchAllUsers() {

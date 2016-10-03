@@ -151,7 +151,7 @@ li.dropdown {
 
 .productTitle {
     font-weight: 600;
-    font-size: 24;
+    font-size: 24px;
 }
 
 /*5. BUTTONS */
@@ -276,8 +276,19 @@ input[type=radio]:checked+.validate {
     color: #fff5f5;
 }
 
+.form-finalizeOrder {
+    float: left;
+    width: 100%;
+}
+
 .form-shoppingCart {
     float: right;
+}
+
+.form-finalizeOrder  .input-Wrapper {
+    width: 48%;
+    float: left;
+    padding: 5px;
 }
 
 .finishOrder {

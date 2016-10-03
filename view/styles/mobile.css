@@ -1,0 +1,11 @@
+@media screen and (max-width: 800px) {
+    .form-finalizeOrder .input-Wrapper {
+        width: 100%;
+        display: inline-block;
+        padding: 0px;
+    }
+
+    input[type=submit] {
+        width: 100%;
+    }
+}

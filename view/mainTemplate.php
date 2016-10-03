@@ -11,7 +11,9 @@ require './controller/pendingOrders.php';
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="<?php echo $dir; ?>/view/styles/style.css">
-        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="<?php echo $dir; ?>/view/styles/mobile.css">
+        <!--<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>-->
+        <script src="scripts/jquery-3.1.0.min.js" type="text/javascript"></script>
         <title></title>
     </head>
 
